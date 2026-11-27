@@ -9,34 +9,61 @@
 <style>
   :root{
     --bg:#faf6f1; --card:#fff; --ink:#2b2420; --muted:#7a6e66;
-    --accent:#c8462c; --accent-soft:#fbe7e1; --line:#ece3da; --warn:#a8650a; --warn-soft:#fdf1dc;
+    --accent:#c8462c; --accent-soft:#fbe7e1; --line:#ece3da;
+    --warn:#a8650a; --warn-soft:#fdf1dc; --train:#2f6f8f; --train-soft:#e4f0f5;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#191513; --card:#231e1b; --ink:#f2ebe5; --muted:#a99c92;
-      --accent:#ef7a5c; --accent-soft:#3a2520; --line:#352d28; --warn:#f0b45a; --warn-soft:#3a2d18; }
+      --accent:#ef7a5c; --accent-soft:#3a2520; --line:#352d28;
+      --warn:#f0b45a; --warn-soft:#3a2d18; --train:#7cc0de; --train-soft:#1b2c34; }
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"IBM Plex Sans Thai",system-ui,sans-serif;line-height:1.6}
-  .wrap{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+    font-family:"IBM Plex Sans Thai",system-ui,sans-serif;line-height:1.65;font-size:16px}
+  .wrap{max-width:680px;margin:0 auto;padding:28px 16px 60px}
   header h1{margin:0;font-size:2rem;letter-spacing:-.5px}
   header h1 span{color:var(--accent)}
-  .meta{color:var(--muted);margin:4px 0 0;font-size:.95rem}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px}
+  .meta{color:var(--muted);margin:4px 0 0}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 18px}
   .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.85rem}
-  .book{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;margin-bottom:28px}
-  .book h2{margin:0 0 6px;font-size:1rem;color:var(--warn)}
-  .book ul{margin:0;padding-left:20px}
-  .day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;position:relative}
-  .day .date{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
-  .day .num{font-size:1.6rem;font-weight:700;color:var(--accent);min-width:2.2ch}
-  .day .dow{color:var(--muted);font-size:.85rem}
-  .day h3{margin:0;font-size:1.1rem}
-  .day ul{margin:6px 0 0;padding-left:20px}
-  .day li{margin:3px 0}
-  .tag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.75rem;
+
+  nav.days{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0;margin-bottom:10px;
+    display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  nav.days a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-radius:10px;padding:4px 12px;font-size:.85rem;text-align:center}
+  nav.days a b{display:block;color:var(--accent);font-size:1rem}
+
+  .box{border-radius:12px;padding:14px 16px;margin-bottom:16px}
+  .box h2{margin:0 0 6px;font-size:1rem}
+  .box ul{margin:0;padding-left:20px}
+  .box li{margin:4px 0}
+  .warn{background:var(--warn-soft);border-left:4px solid var(--warn)}
+  .warn h2{color:var(--warn)}
+  .tips{background:var(--card);border:1px solid var(--line)}
+
+  .day{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:18px 0;scroll-margin-top:70px}
+  .day-head{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  .num{font-size:1.8rem;font-weight:700;color:var(--accent);line-height:1;min-width:2ch}
+  .day-head h3{margin:0;font-size:1.15rem;line-height:1.3}
+  .day-head .dow{color:var(--muted);font-size:.85rem;display:block;font-weight:400}
+  .summary{color:var(--muted);font-size:.92rem;margin:6px 0 12px}
+
+  .tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px}
+  .tl > li{position:relative;padding:0 0 16px 18px}
+  .tl > li:last-child{padding-bottom:0}
+  .tl > li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;
+    background:var(--card);border:2px solid var(--accent)}
+  .time{font-size:.8rem;font-weight:600;color:var(--accent)}
+  .what{font-weight:600}
+  .desc{font-size:.92rem;margin-top:2px}
+  .info{font-size:.82rem;color:var(--muted);margin-top:4px}
+  .go{background:var(--train-soft);border-radius:10px;padding:10px 12px;margin-top:8px;font-size:.9rem}
+  .go b{color:var(--train)}
+  .go ol{margin:4px 0 0;padding-left:20px}
+  .go li{margin:2px 0}
+  .tag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.72rem;
     font-weight:600;border-radius:6px;padding:1px 8px;margin-left:4px;vertical-align:middle}
-  .note{color:var(--muted);font-size:.85rem;margin-top:6px}
   footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:30px}
 </style>
 </head>
@@ -53,79 +80,252 @@
     <span class="chip">🍁 ช่วงใบไม้แดง</span>
   </div>
 
-  <section class="book">
+  <nav class="days">
+    <a href="#d28"><b>28</b>ส.</a>
+    <a href="#d29"><b>29</b>อา.</a>
+    <a href="#d30"><b>30</b>จ.</a>
+    <a href="#d1"><b>1</b>อ.</a>
+    <a href="#d2"><b>2</b>พ.</a>
+    <a href="#d3"><b>3</b>พฤ.</a>
+    <a href="#d4"><b>4</b>ศ.</a>
+  </nav>
+
+  <section class="box warn">
     <h2>⚠️ ต้องจอง/เช็กก่อน</h2>
     <ul>
-      <li>ตั๋วเครื่องบิน (ถ้ายังไม่ได้ออกตั๋ว)</li>
-      <li>Sagano Romantic Train (ถ้าจะนั่ง) ตั๋วเป็นแบบระบุที่นั่ง จองแล้วเปลี่ยนวันหรือเวลาไม่ได้</li>
-      <li>Kaiyukan ซื้อออนไลน์ล่วงหน้าได้ ราคาเปลี่ยนตามวัน</li>
+      <li><b>ตั๋วเครื่องบิน</b> ถ้ายังไม่ได้ออกตั๋ว</li>
+      <li><b>Sagano Romantic Train</b> (วันที่ 2) ที่นั่งเป็นแบบระบุที่นั่ง จองแล้วเปลี่ยนวันหรือเวลาไม่ได้ ช่วงใบไม้แดงที่นั่งเต็มเร็ว</li>
+      <li><b>Kaiyukan</b> (วันที่ 30) ซื้อออนไลน์ล่วงหน้าได้ ราคาเปลี่ยนตามวัน</li>
     </ul>
   </section>
 
-  <article class="day">
-    <div class="date"><span class="num">28</span><span class="dow">ส. · พ.ย.</span></div>
-    <h3>ถึงโอซาก้า</h3>
+  <section class="box tips">
+    <h2>💡 อ่านก่อนเที่ยว</h2>
     <ul>
-      <li>เช็คอิน Lite House Shinsaibashi 4</li>
-      <li>เย็นเดินชินไซบาชิกับโดทงโบริ กินทาโกะยากิ/คุชิคัตสึ</li>
+      <li><b>บัตร IC (ICOCA หรือ Suica)</b> ใช้แตะขึ้นรถไฟ รถไฟใต้ดิน และรถบัสได้แทบทุกสาย ไม่ต้องซื้อตั๋วทีละเที่ยว เติมเงินได้ที่ตู้ในสถานี</li>
+      <li><b>Midosuji (สายสีแดง)</b> เป็นสายหลักของทริปนี้ สถานีชินไซบาชิอยู่สายนี้ ไปได้ทั้งนัมบะ อุเมดะ และ Minoh-Kayano</li>
+      <li>ตอนเดินทางให้เปิด <b>Google Maps</b> ตาม จะบอกชานชาลาและเวลารถไฟให้ด้วย</li>
+      <li>เวลาในแผนเป็นแค่เวลาโดยประมาณ ค่าเข้าชมกับค่ารถอาจเปลี่ยนได้ ควรพกเงินสดเยนติดตัวไว้ด้วย</li>
+      <li>ช่วงนี้เป็นพีคใบไม้แดง วัดดังๆ จะคนเยอะ ไปให้ถึงแต่เช้าจะดีที่สุด</li>
+    </ul>
+  </section>
+
+  <!-- 28 -->
+  <article class="day" id="d28">
+    <div class="day-head"><span class="num">28</span><h3>ถึงโอซาก้า<span class="dow">วันเสาร์ · พ.ย.</span></h3></div>
+    <p class="summary">ถึงแล้วเข้าที่พัก เย็นเดินเล่นย่านกินดื่มใกล้ๆ ไม่ต้องรีบ</p>
+    <ul class="tl">
+      <li>
+        <div class="time">ถึงสนามบิน</div>
+        <div class="what">สนามบินคันไซ (KIX) → นัมบะ</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>เดินตามป้าย <b>Nankai Line</b> ไปที่สถานี Kansai-Airport</li>
+            <li>นั่ง <b>Rapi:t</b> (รถด่วน ที่นั่งจอง) ไป <b>Namba</b> ประมาณ 35–40 นาที ¥1,490</li>
+            <li>หรือนั่ง <b>Airport Express</b> ถูกกว่าแต่ช้ากว่านิดหน่อย ประมาณ 45 นาที</li>
+            <li>ถึงนัมบะแล้วเดินหรือนั่ง Midosuji 1 สถานีไปชินไซบาชิ แล้วเช็คอิน</li>
+          </ol>
+        </div>
+      </li>
+      <li>
+        <div class="time">เย็น</div>
+        <div class="what">ชินไซบาชิ + โดทงโบริ</div>
+        <div class="desc">ถนนช้อปปิ้งในร่ม ป้ายวิ่งกูลิโกะ และร้านกินริมคลอง ลองทาโกะยากิกับคุชิคัตสึ</div>
+        <div class="go"><b>🚶 วิธีไป</b> เดินจากที่พักได้เลย</div>
+      </li>
     </ul>
   </article>
 
-  <article class="day">
-    <div class="date"><span class="num">29</span><span class="dow">อา. · พ.ย.</span></div>
-    <h3>เที่ยวในเมือง</h3>
-    <ul>
-      <li>เช้าไปตลาดคุโรมง</li>
-      <li>บ่ายไปชินเซไกกับหอ Tsutenkaku</li>
-      <li>เย็นไปอุเมดะ ขึ้น Umeda Sky Building ดูวิวกลางคืน</li>
+  <!-- 29 -->
+  <article class="day" id="d29">
+    <div class="day-head"><span class="num">29</span><h3>เที่ยวในเมือง<span class="dow">วันอาทิตย์ · พ.ย.</span></h3></div>
+    <p class="summary">ตลาด → ย่านเก่าย้อนยุค → วิวกลางคืนที่อุเมดะ</p>
+    <ul class="tl">
+      <li>
+        <div class="time">เช้า</div>
+        <div class="what">ตลาดคุโรมง</div>
+        <div class="desc">ตลาดสดในร่ม มีของทะเลย่าง ซูชิ ผลไม้ กินเป็นมื้อเช้าได้เลย</div>
+        <div class="go"><b>🚶 วิธีไป</b> เดินจากนัมบะ/ชินไซบาชิประมาณ 10–15 นาที หรือนั่งรถไฟใต้ดินไปลงสถานี <b>Nippombashi</b></div>
+      </li>
+      <li>
+        <div class="time">บ่าย</div>
+        <div class="what">ชินเซไก + หอ Tsutenkaku</div>
+        <div class="desc">ย่านบรรยากาศย้อนยุค ป้ายไฟเยอะ ถ่ายรูปสวย ร้านคุชิคัตสึต้นตำรับก็อยู่แถวนี้</div>
+        <div class="go"><b>🚃 วิธีไป</b> นั่ง Midosuji ไปทางใต้ ลงสถานี <b>Dobutsuen-mae</b> แล้วเดินประมาณ 5 นาที</div>
+      </li>
+      <li>
+        <div class="time">เย็น–ค่ำ</div>
+        <div class="what">Umeda Sky Building</div>
+        <div class="desc">ขึ้นจุดชมวิวบนตึกดูวิวเมืองตอนกลางคืน</div>
+        <div class="go"><b>🚃 วิธีไป</b> นั่ง Midosuji ไปทางเหนือ ลงสถานี <b>Umeda</b> แล้วเดินประมาณ 10 นาที (ตามป้าย Sky Building)<br>
+          <b>กลับที่พัก:</b> นั่ง Midosuji จาก Umeda ลงมาชินไซบาชิ</div>
+      </li>
     </ul>
   </article>
 
-  <article class="day">
-    <div class="date"><span class="num">30</span><span class="dow">จ. · พ.ย.</span></div>
-    <h3>Katsuo-ji + Kaiyukan</h3>
-    <ul>
-      <li>เช้าไปวัด Katsuo-ji คืนดารุมะ <span class="tag">สำคัญ</span></li>
-      <li>นั่ง Midosuji ไปสุดสายที่ Minoh-Kayano แล้วต่อบัส</li>
-      <li>บ่ายนั่ง Midosuji ลงมาเปลี่ยนสาย Chuo ที่ฮมมาจิ แล้วไปลงสถานีโอซาก้าโค</li>
-      <li>เย็นเข้า Kaiyukan ตอนโหมดกลางคืน (ตั้งแต่ 5 โมงเย็น)</li>
+  <!-- 30 -->
+  <article class="day" id="d30">
+    <div class="day-head"><span class="num">30</span><h3>วัด Katsuo-ji + Kaiyukan<span class="dow">วันจันทร์ · พ.ย.</span></h3></div>
+    <p class="summary">เช้าขึ้นเขาไปคืนดารุมะ เย็นลงมาดูพิพิธภัณฑ์สัตว์น้ำ</p>
+    <ul class="tl">
+      <li>
+        <div class="time">ออกจากที่พักประมาณ 8:30</div>
+        <div class="what">วัด Katsuo-ji (วัดดารุมะ) <span class="tag">สำคัญ</span></div>
+        <div class="desc">วัดบนเขาที่มีตุ๊กตาดารุมะสีแดงวางอยู่ทั่ววัด เอาดารุมะไปคืนที่นี่ ช่วงนี้ใบไม้แดงสวยด้วย</div>
+        <div class="info">เปิด 8:00–17:00 (ปิดรับคนเข้า 30 นาทีก่อนปิด) · ค่าเข้า ¥400</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>นั่ง Midosuji จากชินไซบาชิไปทางเหนือจนสุดสายที่ <b>Minoh-Kayano</b> (ไม่ต้องเปลี่ยนสาย)</li>
+            <li>ออกไปที่ <b>ป้ายรถบัสหมายเลข 8</b> แล้วขึ้น Hankyu Bus ที่ไปวัด Katsuo-ji</li>
+            <li>รถบัสวันธรรมดาออกทุก 30 นาที ตั้งแต่ 9:00 ถึง <b>15:00 (เที่ยวสุดท้าย)</b></li>
+          </ol>
+          <b>ขากลับ:</b> นั่งบัสจากวัดกลับมาที่ Minoh-Kayano (เที่ยวสุดท้าย 17:05)
+        </div>
+      </li>
+      <li>
+        <div class="time">บ่าย</div>
+        <div class="what">กินข้าวกลางวันระหว่างทาง</div>
+        <div class="desc">แวะกินแถว Minoh-Kayano หรือไปกินที่ Tempozan Marketplace ข้าง Kaiyukan ก็ได้</div>
+      </li>
+      <li>
+        <div class="time">ตั้งแต่ 17:00</div>
+        <div class="what">Kaiyukan (พิพิธภัณฑ์สัตว์น้ำโอซาก้า)</div>
+        <div class="desc">ไฮไลต์คือฉลามวาฬในตู้ยักษ์ ตั้งแต่ 5 โมงเย็นไฟกับเพลงจะเปลี่ยนเป็นโหมดกลางคืน และคนมักน้อยกว่าตอนกลางวัน ใช้เวลาเดินดูประมาณ 2 ชั่วโมง</div>
+        <div class="info">เปิด 10:00–20:00 (เข้าได้ถึง 19:00) · ผู้ใหญ่ประมาณ ¥2,700 ราคาเปลี่ยนตามวัน</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>จาก Minoh-Kayano นั่ง Midosuji ลงมาทางใต้ ลงที่สถานี <b>Hommachi</b></li>
+            <li>เปลี่ยนเป็น <b>สาย Chuo (สีเขียว)</b> ไปทาง Cosmosquare ลงที่สถานี <b>Osakako</b></li>
+            <li>ออก <b>ทางออก 1</b> แล้วเดินประมาณ 5 นาที</li>
+          </ol>
+          <b>กลับที่พัก:</b> นั่ง Chuo ไป Hommachi แล้วเปลี่ยนเป็น Midosuji ลงที่ชินไซบาชิ
+        </div>
+      </li>
     </ul>
-    <p class="note">วัดเปิด 8:00–17:00 · ค่าเข้า ¥400 · บัสไปวัดเที่ยวสุดท้ายของวันธรรมดาออก 15:00</p>
   </article>
 
-  <article class="day">
-    <div class="date"><span class="num">1</span><span class="dow">อ. · ธ.ค.</span></div>
-    <h3>ฟุชิมิอินาริ + อุจิ</h3>
-    <ul>
-      <li>เช้าแวะฟุชิมิอินาริก่อน เพราะอยู่ทางผ่าน</li>
-      <li>ต่อไปอุจิ ไหว้วัดเบียวโดอิน แล้วเดินถนนมัทฉะ</li>
+  <!-- 1 -->
+  <article class="day" id="d1">
+    <div class="day-head"><span class="num">1</span><h3>ฟุชิมิอินาริ + อุจิ<span class="dow">วันอังคาร · ธ.ค.</span></h3></div>
+    <p class="summary">ใช้รถไฟสาย Keihan ทั้งวัน ไปเช้า กลับเย็น</p>
+    <ul class="tl">
+      <li>
+        <div class="time">ออกประมาณ 7:30</div>
+        <div class="what">ศาลเจ้าฟุชิมิอินาริ</div>
+        <div class="desc">ทางเดินที่มีโทริอิ (ซุ้มประตู) สีส้มเรียงต่อกันเป็นพันอัน เดินขึ้นไปแค่ครึ่งทางก็สวยแล้ว ไปเช้าคนน้อยกว่า</div>
+        <div class="info">เข้าฟรี · เปิดตลอด</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>นั่ง Midosuji จากชินไซบาชิไปลงสถานี <b>Yodoyabashi</b></li>
+            <li>ขึ้น <b>Keihan Main Line</b> ไปทางเกียวโต</li>
+            <li>ถ้าขึ้นรถด่วน (Limited Express) ให้ไปลงที่ <b>Tambabashi</b> แล้วเปลี่ยนเป็นรถท้องถิ่น (Local) ต่อไปลงสถานี <b>Fushimi-Inari</b> เพราะรถด่วนไม่จอดสถานีนี้</li>
+            <li>เดินไปศาลเจ้าประมาณ 5 นาที</li>
+          </ol>
+        </div>
+      </li>
+      <li>
+        <div class="time">สาย–บ่าย</div>
+        <div class="what">อุจิ: วัดเบียวโดอิน + ถนนมัทฉะ</div>
+        <div class="desc">วัดเบียวโดอินคือวัดที่อยู่บนเหรียญ 10 เยน ส่วนถนนหน้าวัดเรียงรายไปด้วยร้านชาเขียว ขนมมัทฉะ และไอติมชาเขียว</div>
+        <div class="info">เบียวโดอิน: เปิด 8:30–17:30 (เข้าได้ถึง 17:15) · ค่าเข้า ¥700</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>จาก Fushimi-Inari ขึ้น Keihan ย้อนกลับลงมาทางใต้ ลงที่ <b>Chushojima</b></li>
+            <li>เปลี่ยนเป็น <b>Keihan Uji Line</b> นั่งจนสุดสายที่ <b>Uji</b> ประมาณ 15 นาที</li>
+            <li>เดินข้ามสะพานอุจิไปวัดประมาณ 10 นาที</li>
+          </ol>
+          <b>กลับที่พัก:</b> Uji → Chushojima → Keihan ไป Yodoyabashi → Midosuji ไปชินไซบาชิ
+        </div>
+      </li>
     </ul>
   </article>
 
-  <article class="day">
-    <div class="date"><span class="num">2</span><span class="dow">พ. · ธ.ค.</span></div>
-    <h3>อาราชิยามะ</h3>
-    <ul>
-      <li>เช้าตรู่เดินป่าไผ่ก่อนคนเยอะ</li>
-      <li>ต่อด้วยวัดเท็นริวจิกับสะพานโทเก็ตสึเคียว</li>
-      <li>Sagano Romantic Train <span class="tag">ต้องจอง</span></li>
+  <!-- 2 -->
+  <article class="day" id="d2">
+    <div class="day-head"><span class="num">2</span><h3>อาราชิยามะ (เกียวโต)<span class="dow">วันพุธ · ธ.ค.</span></h3></div>
+    <p class="summary">ป่าไผ่ วัด สะพาน และรถไฟชมวิวใบไม้แดง ออกเช้าตรู่เพื่อเลี่ยงคน</p>
+    <ul class="tl">
+      <li>
+        <div class="time">ออกประมาณ 6:45</div>
+        <div class="what">เดินทางไปอาราชิยามะ</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>นั่ง Midosuji ไปลงสถานี <b>Umeda</b> แล้วเดินไปสถานี <b>Hankyu Osaka-umeda</b></li>
+            <li>ขึ้น <b>Hankyu Kyoto Line</b> ไปทางเกียวโต ลงที่ <b>Katsura</b></li>
+            <li>เปลี่ยนเป็น <b>Hankyu Arashiyama Line</b> นั่งจนสุดสายที่ <b>Arashiyama</b></li>
+          </ol>
+          ช่วงรถไฟ Hankyu ใช้เวลาประมาณ 50 นาที ¥410
+        </div>
+      </li>
+      <li>
+        <div class="time">เช้า</div>
+        <div class="what">สะพานโทเก็ตสึเคียว → ป่าไผ่</div>
+        <div class="desc">เดินข้ามสะพานโทเก็ตสึเคียวที่มีวิวภูเขาใบไม้แดง แล้วไปป่าไผ่ซึ่งจะคนน้อยที่สุดตอนเช้า</div>
+        <div class="info">ป่าไผ่เข้าฟรี · เปิดตลอด</div>
+        <div class="go"><b>🚶 วิธีไป</b> จากสถานี Hankyu Arashiyama เดินไปสะพานประมาณ 7 นาที แล้วเดินต่อไปป่าไผ่</div>
+      </li>
+      <li>
+        <div class="time">สาย</div>
+        <div class="what">วัดเท็นริวจิ</div>
+        <div class="desc">วัดมรดกโลกที่มีสวนญี่ปุ่นสวยมาก ประตูหลังของสวนออกไปป่าไผ่ได้พอดี</div>
+        <div class="info">เปิด 8:30–17:00 · ค่าเข้าสวน ¥500 (เข้าตัวอาคารด้วย +¥300)</div>
+      </li>
+      <li>
+        <div class="time">ตามรอบที่จองไว้</div>
+        <div class="what">Sagano Romantic Train <span class="tag">ต้องจอง</span></div>
+        <div class="desc">รถไฟชมวิวที่วิ่งเลียบหุบเขาริมแม่น้ำ ช่วงนี้ใบไม้แดงสองข้างทาง นั่งประมาณ 25 นาที</div>
+        <div class="info">¥880 ต่อเที่ยว</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>ขึ้นที่สถานี <b>Torokko Saga</b> (อยู่ติดกับสถานี JR Saga-Arashiyama)</li>
+            <li>นั่งไปลงสุดสายที่ <b>Torokko Kameoka</b></li>
+            <li>เดินไปสถานี <b>JR Umahori</b> ประมาณ 10 นาที แล้วนั่ง JR Sagano Line กลับมาลงที่ <b>Saga-Arashiyama</b></li>
+          </ol>
+        </div>
+      </li>
+      <li>
+        <div class="time">เย็น</div>
+        <div class="what">กลับโอซาก้า</div>
+        <div class="go"><b>🚃 วิธีไป</b> นั่งเส้นทางเดิมย้อนกลับ: Hankyu Arashiyama → Katsura → Osaka-umeda → Midosuji ไปชินไซบาชิ</div>
+      </li>
     </ul>
   </article>
 
-  <article class="day">
-    <div class="date"><span class="num">3</span><span class="dow">พฤ. · ธ.ค.</span></div>
-    <h3>วันชิล</h3>
-    <ul>
-      <li>ช้อปอุเมดะกับนัมบะ/ชินไซบาชิ</li>
-      <li>ซื้อของฝาก แล้วจัดกระเป๋า</li>
+  <!-- 3 -->
+  <article class="day" id="d3">
+    <div class="day-head"><span class="num">3</span><h3>วันชิล + ช้อปปิ้ง<span class="dow">วันพฤหัสบดี · ธ.ค.</span></h3></div>
+    <p class="summary">วันสบายๆ ซื้อของฝากให้ครบ แล้วจัดกระเป๋า</p>
+    <ul class="tl">
+      <li>
+        <div class="time">สาย–บ่าย</div>
+        <div class="what">ช้อปอุเมดะ</div>
+        <div class="desc">ห้างใหญ่รอบสถานีอุเมดะ เช่น Grand Front, Lucua, Hankyu</div>
+        <div class="go"><b>🚃 วิธีไป</b> นั่ง Midosuji ลงสถานี <b>Umeda</b></div>
+      </li>
+      <li>
+        <div class="time">เย็น</div>
+        <div class="what">นัมบะ / ชินไซบาชิ</div>
+        <div class="desc">ซื้อของฝากที่ดองกิกับร้านขนม มื้อสุดท้ายในโอซาก้า แล้วกลับไปจัดกระเป๋า</div>
+        <div class="go"><b>🚃 วิธีไป</b> นั่ง Midosuji กลับลงมาชินไซบาชิ/นัมบะ</div>
+      </li>
     </ul>
   </article>
 
-  <article class="day">
-    <div class="date"><span class="num">4</span><span class="dow">ศ. · ธ.ค.</span></div>
-    <h3>กลับบ้าน</h3>
-    <ul>
-      <li>เช็คเอาท์แล้วไปสนามบินคันไซ (จากนัมบะนั่ง Nankai ได้ตรงๆ)</li>
+  <!-- 4 -->
+  <article class="day" id="d4">
+    <div class="day-head"><span class="num">4</span><h3>กลับบ้าน<span class="dow">วันศุกร์ · ธ.ค.</span></h3></div>
+    <p class="summary">ควรไปถึงสนามบินก่อนเครื่องออกอย่างน้อย 3 ชั่วโมง</p>
+    <ul class="tl">
+      <li>
+        <div class="time">ตามเวลาไฟลต์</div>
+        <div class="what">ชินไซบาชิ → สนามบินคันไซ</div>
+        <div class="go"><b>🚃 วิธีไป</b>
+          <ol>
+            <li>เช็คเอาท์ แล้วเดินหรือนั่ง Midosuji ไปสถานี <b>Nankai Namba</b></li>
+            <li>นั่ง <b>Rapi:t</b> หรือ <b>Airport Express</b> ไปลงที่ <b>Kansai-Airport</b> ประมาณ 35–45 นาที</li>
+          </ol>
+        </div>
+      </li>
     </ul>
   </article>
 
